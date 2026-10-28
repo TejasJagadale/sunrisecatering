@@ -1,0 +1,245 @@
+/* ───────── Design tokens ───────── */
+:root {
+  --green: #183f32;
+  --green-2: #245844;
+  --green-3: #0f2b22;
+  --orange: #f47b35;
+  --orange-ink: #b8470f; /* orange that passes contrast for text on cream */
+  --cream: #fff7e9;
+  --cream-2: #fbefd6;
+  --yellow: #ffd66b;
+  --butter: #ffefc2;
+  --red: #db493b;
+  --char: #242824;
+  --sage: #e3efd9;
+  --ink-dark: #10281f; /* text colour on orange / yellow fills */
+
+  --serif: 'Fraunces', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
+  --sans: 'DM Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  --gutter: clamp(18px, 4.4vw, 44px);
+  --maxw: 1240px;
+  --nav-h: 76px;
+  --r-lg: 28px;
+  --r-md: 18px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --shadow-soft: 0 18px 40px -22px rgba(24, 63, 50, 0.45);
+}
+
+/* ───────── Reset ───────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  overflow-x: clip;
+  scroll-padding-top: calc(var(--nav-h) + 12px);
+}
+html.is-locked,
+html.is-locked body {
+  overflow: hidden;
+}
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--cream);
+  color: var(--green);
+  font-family: var(--sans);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+img,
+svg,
+iframe {
+  display: block;
+  max-width: 100%;
+}
+img {
+  height: auto;
+}
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+ol,
+figure,
+dl,
+dd {
+  margin: 0;
+}
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+a {
+  color: inherit;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+button {
+  cursor: pointer;
+}
+address {
+  font-style: normal;
+}
+:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+::selection {
+  background: var(--yellow);
+  color: var(--ink-dark);
+}
+
+.sr-only {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -80px;
+  z-index: 200;
+  background: var(--yellow);
+  color: var(--ink-dark);
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-weight: 700;
+  transition: top 0.2s;
+}
+.skip-link:focus {
+  top: 12px;
+}
+
+/* ───────── Layout ───────── */
+.container {
+  width: min(var(--maxw), 100% - 2 * var(--gutter));
+  margin-inline: auto;
+}
+.container-narrow {
+  width: min(820px, 100% - 2 * var(--gutter));
+  margin-inline: auto;
+}
+.section {
+  padding-block: clamp(72px, 10vw, 140px);
+  position: relative;
+}
+main:focus {
+  outline: none;
+}
+.page {
+  overflow-x: clip;
+}
+
+/* ───────── Typography ───────── */
+.h-hero,
+.h-section,
+.split {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-variation-settings: 'opsz' 144;
+  letter-spacing: -0.02em;
+  color: inherit;
+}
+.h-hero {
+  font-size: clamp(2.7rem, 7.6vw, 6.4rem);
+  line-height: 1;
+}
+.h-section {
+  font-size: clamp(2rem, 4.8vw, 3.8rem);
+  line-height: 1.04;
+}
+.split-line {
+  display: block;
+}
+.sw {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding: 0.04em 0.06em 0.16em;
+  margin: -0.04em -0.06em -0.16em;
+}
+.sw-i {
+  display: inline-block;
+  will-change: transform;
+}
+.sw-i.em {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--orange-ink);
+}
+.is-light .sw-i.em,
+.on-dark .sw-i.em,
+.tone-green .sw-i.em,
+.tone-night .sw-i.em {
+  color: var(--yellow);
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--orange-ink);
+  margin-bottom: 18px;
+}
+.eyebrow.on-dark,
+.is-light .eyebrow {
+  color: var(--yellow);
+}
+.lead {
+  font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+  line-height: 1.6;
+  max-width: 58ch;
+  margin-top: 20px;
+}
+.hero-lead {
+  font-size: clamp(1.08rem, 1.5vw, 1.25rem);
+  max-width: 54ch;
+  margin-top: 26px;
+}
+.hero-lead a {
+  font-weight: 700;
+}
+.hero-lead.on-dark {
+  color: var(--cream);
+}
+
+/* ───────── Reduced motion ───────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
